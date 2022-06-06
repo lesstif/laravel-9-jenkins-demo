@@ -11,11 +11,14 @@ pipeline {
                 echo "Multiline shell steps works too"
                 ls -lah
                 '''
+                sh 'cd /var/www/lesstif/opendevops'
+                sh 'pwd'
             }
         }
 
         stage('build') {
             steps {
+                sh 'pwd'
                 echo  'build done'
             }
         }
