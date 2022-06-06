@@ -4,6 +4,12 @@ def workspace = env.WORKSPACE
 pipeline {
     agent  any
     stages {
+        sh "pwd"
+        dir('change-to-deploy-folder') {
+            sh 'cd /var/www/lesstif/opendevops'
+        }
+        sh "pwd"
+
         stage('prepare') {
             steps {
                 sh 'echo "Hello World"'
@@ -11,7 +17,6 @@ pipeline {
                 echo "Multiline shell steps works too"
                 ls -lah
                 '''
-                sh 'cd /var/www/lesstif/opendevops'
                 sh 'pwd'
             }
         }
