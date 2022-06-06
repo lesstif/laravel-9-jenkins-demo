@@ -11,6 +11,7 @@ pipeline {
 //                     sh 'cd /var/www/lesstif/opendevops'
 //                 }
                 sh "git pull origin main"
+
             }
         }
 
@@ -23,6 +24,11 @@ pipeline {
                 sh "composer install"
                 sh "php artisan cache:clear"
                 echo  'build done'
+                post {
+                     always {
+                         jiraSendBuildInfo site: 'kjeong-demo-1.atlassian.net'
+                     }
+                 }
             }
         }
 
@@ -37,6 +43,11 @@ pipeline {
                     steps {
                         echo 'prod deployment done'
                     }
+                }
+                post {
+                     always {
+                         jiraSendDeploymentInfo environmentId: 'us-stg-1', environmentName: 'us-stg-1', environmentType: 'staging'
+                     }
                 }
             }
         }
