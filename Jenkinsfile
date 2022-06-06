@@ -28,7 +28,7 @@ pipeline {
                      always {
                          jiraSendBuildInfo site: 'kjeong-demo-1.atlassian.net'
                      }
-                 }
+                }
             }
         }
 
@@ -42,13 +42,14 @@ pipeline {
                 stage('deploy to prod') {
                     steps {
                         echo 'prod deployment done'
+                        post {
+                             always {
+                                 jiraSendDeploymentInfo environmentId: 'us-stg-1', environmentName: 'us-stg-1', environmentType: 'staging'
+                             }
+                        }
                     }
                 }
-                post {
-                     always {
-                         jiraSendDeploymentInfo environmentId: 'us-stg-1', environmentName: 'us-stg-1', environmentType: 'staging'
-                     }
-                }
+
             }
         }
     }
