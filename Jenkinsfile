@@ -4,26 +4,24 @@ def workspace = env.WORKSPACE
 pipeline {
     agent  any
     stages {
-        sh "pwd"
-        dir('change-to-deploy-folder') {
-            sh 'cd /var/www/lesstif/opendevops'
-        }
-        sh "pwd"
-
         stage('prepare') {
             steps {
-                sh 'echo "Hello World"'
-                sh '''
-                echo "Multiline shell steps works too"
-                ls -lah
-                '''
-                sh 'pwd'
+                sh "pwd"
+                dir('change-to-deploy-folder') {
+                    sh 'cd /var/www/lesstif/opendevops'
+                }
+                sh "git pull origin main"
             }
         }
 
         stage('build') {
             steps {
-                sh 'pwd'
+                 sh "pwd"
+                dir('change-to-deploy-folder') {
+                    sh 'cd /var/www/lesstif/opendevops'
+                }
+                sh "composer install"
+                sh "php artisan cache:clear"
                 echo  'build done'
             }
         }
