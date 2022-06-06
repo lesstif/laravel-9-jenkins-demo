@@ -7,19 +7,19 @@ pipeline {
         stage('prepare') {
             steps {
                 sh "pwd"
-                dir('change-to-deploy-folder') {
-                    sh 'cd /var/www/lesstif/opendevops'
-                }
+//                 dir('change-to-deploy-folder') {
+//                     sh 'cd /var/www/lesstif/opendevops'
+//                 }
                 sh "git pull origin main"
             }
         }
 
         stage('build') {
             steps {
-                 sh "pwd"
-                dir('change-to-deploy-folder') {
-                    sh 'cd /var/www/lesstif/opendevops'
-                }
+                sh "pwd"
+//                 dir('change-to-deploy-folder') {
+//                     sh 'cd /var/www/lesstif/opendevops'
+//                 }
                 sh "composer install"
                 sh "php artisan cache:clear"
                 echo  'build done'
